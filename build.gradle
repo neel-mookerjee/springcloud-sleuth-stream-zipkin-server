@@ -1,0 +1,78 @@
+apply plugin: 'spring-boot'
+apply plugin: "io.spring.dependency-management"
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
+    maven { url "http://maven.twttr.com"}
+}
+
+buildscript {
+    repositories {
+    	mavenCentral()
+    	maven { url "https://repo.spring.io/snapshot" }
+    	maven { url "https://repo.spring.io/milestone" }
+        maven { url "http://maven.twttr.com"}
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.3.1.RELEASE")
+        classpath ("io.spring.gradle:dependency-management-plugin:0.5.6.RELEASE")
+    }
+}
+
+dependencyManagement {
+    dependencies {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:Brixton.BUILD-SNAPSHOT"
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:Brixton.RC1"
+        }
+        ext {
+
+        }
+    }
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.springframework:spring-web")
+    compile ("ch.qos.logback:logback-classic")
+
+    //compile("org.springframework.cloud:spring-cloud-sleuth-stream")
+    // zipkin stream server
+    compile("org.springframework.cloud:spring-cloud-sleuth-zipkin-stream")
+
+    // binder for rabbitmq
+    //compile("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
+
+    // binder for kafka
+    compile("org.springframework.cloud:spring-cloud-starter-stream-kafka")
+
+    // this starter is supposed to identify datasource by the url
+    compile("org.springframework.boot:spring-boot-starter-jdbc")
+
+    // mysql as backstore
+    compile('mysql:mysql-connector-java:5.1.38')
+
+    // cassandra as backstore
+    //compile('io.zipkin.java:storage-cassandra:0.13.0')
+    //compile('io.zipkin:zipkin-cassandra:1.32.0')
+    //compile('com.datastax.cassandra:cassandra-driver-core:2.1.9')
+    // the following compiled
+    //compile('org.apache-extras.cassandra-jdbc:cassandra-jdbc:1.2.1')
+}
+
+System.setProperty("org.gradle.color.failure", "RED")
+System.setProperty("org.gradle.color.progressstatus", "YELLOW")
+System.setProperty("org.gradle.color.success", "GREEN")
+
+bootRun {
+    jvmArgs = ['-Dspring.output.ansi.enabled=always']
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.1'
+}
