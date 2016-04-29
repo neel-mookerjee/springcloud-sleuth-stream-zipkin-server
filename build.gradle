@@ -46,18 +46,19 @@ dependencies {
     compile("org.springframework.cloud:spring-cloud-sleuth-zipkin-stream")
 
     // binder for rabbitmq
-    //compile("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
+    compile("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
 
     // binder for kafka
-    compile("org.springframework.cloud:spring-cloud-starter-stream-kafka")
+    //compile("org.springframework.cloud:spring-cloud-starter-stream-kafka")
 
     // this starter is supposed to identify datasource by the url
-    compile("org.springframework.boot:spring-boot-starter-jdbc")
+    //compile("org.springframework.boot:spring-boot-starter-jdbc")
 
     // mysql as backstore
-    compile('mysql:mysql-connector-java:5.1.38')
+    //compile('mysql:mysql-connector-java:5.1.38')
 
     // cassandra as backstore
+    compile ('io.zipkin.java:storage-cassandra:0.14.0')
     //compile('io.zipkin.java:storage-cassandra:0.13.0')
     //compile('io.zipkin:zipkin-cassandra:1.32.0')
     //compile('com.datastax.cassandra:cassandra-driver-core:2.1.9')

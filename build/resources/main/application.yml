@@ -1,6 +1,32 @@
-## -- cassandra and kafka -- ##
+## -- cassandra and rabbitmq -- ##
+zipkin:
+  storage:
+    type: cassandra
+spring:
+  rabbitmq:
+    host: localhost
+  sleuth:
+    enabled: false
+    stream:
+      enabled: false
+  datasource:
+    #schema: classpath:/cassandra-schema-cql3.txt
+    url: jdbc:cassandra://127.0.0.1:9160
+    ensureSchema: true
+    #username: root
+    #password:
+    keyspace: zipkin
+    contactPoints: localhost
+    ## Switch this on to create the schema on startup:
+    #initialize: true
+    #continueOnError: true
+    #driver-class-name: org.apache.cassandra.cql.jdbc.CassandraDriver
+
+
+
+### -- cassandra and kafka -- ##
 #zipkin:
-#  store:
+#  storage:
 #    type: cassandra
 #spring:
 #  cloud:
@@ -38,38 +64,38 @@
 
 
 ## -- kafka and mysql (working) --##
-spring:
-  cloud:
-    stream:
-      bindings:
-        sleuth:
-          destination: tracing-stream-topic
-          binder: kafka1
-      binders:
-        kafka1:
-          type: kafka
-          binder:
-            zkNodes: localhost
-            defaultZkPort: 2181
-            brokers: localhost
-            defaultBrokerPort: 9092
-            minPartitionCount: 1
-            replicationFactor: 1
-  datasource:
-    schema: classpath:/zipkin-schema.sql
-    url: jdbc:mysql://127.0.0.1/test
-    username: root
-    password:
-    # Switch this on to create the schema on startup:
-    initialize: true
-    continueOnError: true
-  sleuth:
-    enabled: false
-    stream:
-      enabled: false
-zipkin:
-  store:
-    type: mysql
+#spring:
+#  cloud:
+#    stream:
+#      bindings:
+#        sleuth:
+#          destination: tracing-stream-topic
+#          binder: kafka1
+#      binders:
+#        kafka1:
+#          type: kafka
+#          binder:
+#            zkNodes: localhost
+#            defaultZkPort: 2181
+#            brokers: localhost
+#            defaultBrokerPort: 9092
+#            minPartitionCount: 1
+#            replicationFactor: 1
+#  datasource:
+#    schema: classpath:/zipkin-schema.sql
+#    url: jdbc:mysql://127.0.0.1/test
+#    username: root
+#    password:
+#    # Switch this on to create the schema on startup:
+#    initialize: true
+#    continueOnError: true
+#  sleuth:
+#    enabled: false
+#    stream:
+#      enabled: false
+#zipkin:
+#  store:
+#    type: mysql
 
 
 ## -- mysql and rabbitmq (working) -- ##
